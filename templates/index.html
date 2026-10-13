@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Linear Regression Prediction</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 18px; background: #f5f7fb; color: #222; }
+    main { background: white; padding: 28px; border-radius: 12px; box-shadow: 0 3px 14px #0001; }
+    label { display: block; margin-top: 18px; font-weight: bold; }
+    select, input, button { box-sizing: border-box; width: 100%; padding: 11px; margin-top: 8px; font-size: 16px; }
+    button { background: #2457c5; color: white; border: 0; border-radius: 6px; cursor: pointer; margin-top: 22px; }
+    .result { background: #eaf7ed; padding: 14px; margin-top: 20px; border-radius: 7px; white-space: pre-wrap; }
+    .error { background: #ffeded; padding: 14px; margin-top: 20px; border-radius: 7px; white-space: pre-wrap; }
+    .details { white-space: pre-wrap; margin-top: 10px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Linear Regression on Two Datasets</h1>
+  <p>Choose a dataset and enter a numeric value to predict its target.</p>
+  <form method="post">
+    <label for="dataset">Dataset</label>
+    <select id="dataset" name="dataset">
+      {% for name in datasets %}
+      <option value="{{ name }}" {% if name == selected_dataset %}selected{% endif %}>{{ name }}</option>
+      {% endfor %}
+    </select>
+    <label for="input_value">Input value (years of experience or hours studied)</label>
+    <input id="input_value" name="input_value" type="number" step="any" required value="{{ input_value }}">
+    <button type="submit">Predict</button>
+  </form>
+  {% if prediction %}
+    <div class="result"><strong>{{ prediction }}</strong><div class="details">{{ details }}</div></div>
+  {% endif %}
+  {% if error %}
+    <div class="error"><strong>Could not make prediction:</strong><br>{{ error }}</div>
+  {% endif %}
+</main>
+</body>
+</html>
